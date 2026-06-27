@@ -9,6 +9,45 @@ Banco de pruebas: prompts, workflows y modelos de ComfyUI para el universo
 *Subordinación y Valor*. Se exportan las imágenes desde ComfyUI a este repo y se
 documenta cada prueba en `docs/`.
 
+## El ecosistema: a quién servís y qué necesitás
+
+Este repo **no vive solo**: es la **fábrica de retratos** del ecosistema SyV
+(`~/Dev/SyV/`). No hace falta que sepas todo el universo para operar acá, pero sí
+quién te alimenta y quién te consume.
+
+### Te alimenta: `../syv-pj` (crítico)
+
+Los **sujetos a retratar no se inventan acá**: viven en el repo hermano
+**`syv-pj`**, el módulo de la entidad mínima de SyV (el *personaje*). Sus
+**personajes mock** — las fichas canónicas de ejemplo — son la materia prima de
+todo retrato:
+
+- **Ubicación:** `../syv-pj/resources/personajes/*.md` (34 fichas, agrupadas por
+  facción: Fuerzas Armadas/Confederación · Resistencia Subterránea/Ejército Rojo ·
+  Iglesia/Inquisición · facciones menores). Índice en `_moc-personajes.md`.
+- **Qué leés de cada ficha** (frontmatter YAML + prosa): `nombre`, `faccion`,
+  `rango`, `especialidad`, `edad`, `genero`, `aspectos`, `rasgos`, `equipo` y la
+  `description` / prosa narrativa. De ahí salen el sujeto, su facción y su
+  tratamiento visual.
+- **Cómo lo resuelven los scripts** (`scripts/generate_portraits.py`), en orden:
+  1. `$SYV_PJ_PATH/resources/personajes/`
+  2. hermano `../syv-pj/resources/personajes/` (default)
+  3. `../syv-pj-api/vendor/syv-pj/resources/personajes/`
+
+  Si ninguno existe, no hay a quién retratar: cortá y avisá.
+
+> `syv-pj` es **solo lectura** desde acá. Es un playground hermano, pero este
+> repo **no escribe** fichas de personaje — solo las lee como entrada.
+
+### A quién servís: el creador de personajes
+
+Tu **servicio** es la imagen: el retrato / ficha visual del personaje. Lo consume
+la línea del **creador de personajes** — `syv-pj` (define la entidad y declara la
+*generación visual* como uno de sus casos de uso), `syv-pj-api` (motor backend) y
+los visualizadores `syv-pj-frontend` / `syv-pj-flutter` (muestran la ficha
+visual). La **paleta** y el **lore** (facciones, lugares) salen de `syv-docs` vía
+la MCP `markdown-vault-syv` (ver regla 4).
+
 ## ComfyUI — vía única
 
 Para cualquier tarea de ComfyUI (start/stop/status, cargar workflow, generar,
