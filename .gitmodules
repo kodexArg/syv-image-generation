@@ -1,0 +1,3 @@
+[submodule ".agents/harness"]
+	path = .agents/harness
+	url = git@github.com:kodexArg/syv-harness.git
