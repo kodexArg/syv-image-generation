@@ -1,0 +1,24 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editor / IDE (preferencias locales)
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ruff_cache/
+.mypy_cache/
+
+# Imágenes pesadas de prueba — por defecto NO se versionan.
+# Solo se commitean las imágenes seleccionadas (ver docs/workflow.md):
+# forzá con `git add -f images/seleccionadas/<archivo>`.
+images/raw/
+*.tmp.png
+
+# Cualquier export crudo que caiga acá directo desde ComfyUI
+/export-tmp/

@@ -1,0 +1,112 @@
+{
+  "1": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "zavyfantasiaxlPDXL_v20.safetensors"
+    }
+  },
+  "2": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    }
+  },
+  "3": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "score_9, score_8_up, score_7_up, pixel art, retro 16-bit RPG character portrait, close-up face of a stern 27-year-old male officer of the military theocracy. He has a rugged face, short grey stubble, cold eyes, wearing an olive-drab military cap and the high collar of an olive-drab uniform. Under perpetual cold rain, dark atmospheric lighting. Color palette: matte military olive drab green (#7B8A4E), celeste blue accents (#8FB8D6), cream white (#F3EEE4), deep warm-black backdrop (#0C0B09). Classic gaming pixel sprite art, clean visible square pixel grid, dithered shading, nostalgic aesthetic, 64x64 style.",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "4": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "score_6, score_5, score_4, worst quality, low quality, photo, photorealistic, 3d render, smooth, blurry, noisy, gradient backgrounds, signature, logo, watermark, border, frame",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "5": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 977125715,
+      "steps": 28,
+      "cfg": 7.0,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 1.0,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "3",
+        0
+      ],
+      "negative": [
+        "4",
+        0
+      ],
+      "latent_image": [
+        "2",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "5",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    }
+  },
+  "7": {
+    "class_type": "ImageScale",
+    "inputs": {
+      "image": [
+        "6",
+        0
+      ],
+      "upscale_method": "nearest-exact",
+      "width": 64,
+      "height": 64,
+      "crop": "disabled"
+    }
+  },
+  "8": {
+    "class_type": "ImageScale",
+    "inputs": {
+      "image": [
+        "7",
+        0
+      ],
+      "upscale_method": "nearest-exact",
+      "width": 512,
+      "height": 512,
+      "crop": "disabled"
+    }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "syv_pixel_art_portrait",
+      "images": [
+        "8",
+        0
+      ]
+    }
+  }
+}
