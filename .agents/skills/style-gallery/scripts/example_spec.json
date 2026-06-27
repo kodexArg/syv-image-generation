@@ -1,0 +1,18 @@
+{
+  "title": "SyV · 2 estilos de ejemplo",
+  "subject": ", a weathered 45 year old man, veteran sergeant of the Confederacion Argentina theocratic army, broad shoulders, square jaw, short grey stubble, a scar through one eyebrow, solemn weary eyes, olive drab green high-collar military uniform with celeste blue trim, a small brass crucifix at the throat, grim dystopian military theocracy, solemn dignified bust portrait",
+  "negative": "score_6, score_5, score_4, photorealistic, photograph, 3d render, blurry, soft focus, multiple people, crowd, duplicate, inset, second face, thumbnail, text, letters, words, signature, watermark, logo, deformed face, mutated hands, extra fingers",
+  "output_dir": "/home/kodex/Dev/SyV/syv-image-prompts/build/style_example",
+  "options": [
+    {
+      "label": "Óleo CRPG 2000s",
+      "desc": "Disco Elysium / Arcanum &middot; pinceladas &middot; claroscuro a la luz de vela.",
+      "style_clause": "(oil painting portrait:1.3), 2000s CRPG character portrait, Disco Elysium and Arcanum style, painterly visible brushstrokes, muted earthy palette, dramatic chiaroscuro candlelight, grim painted realism, textured canvas"
+    },
+    {
+      "label": "Grabado / Aguafuerte",
+      "desc": "Estampa intaglio &middot; cruz-rayado fino &middot; santoral / billete antiguo &middot; austero.",
+      "style_clause": "(copper engraving:1.3), old master etching, intaglio print, fine cross hatching line work, austere monochrome, holy card engraving, antique stipple portrait, solemn and reverent"
+    }
+  ]
+}
