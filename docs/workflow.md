@@ -32,30 +32,34 @@ uv run scripts/export.py --prefix syv_pixel_art_portrait
 uv run scripts/export.py --since 30                   # últimos 30 min
 ```
 
-`images/raw/` está en `.gitignore`: los crudos no se versionan.
+`images/raw/` está en `.gitignore`: el bulk crudo no se versiona.
 
-## 4. Documentar la prueba
+## 4. Entregar al `inbox`
 
-Creá `docs/tests/AAAAMMDD-<slug>.md`. Copiá `docs/tests/_template.md`. Mínimo:
-prompt positivo y negativo completos, checkpoint, sampler, steps, cfg, seed,
-resolución, workflow usado y una conclusión (qué funcionó, qué no, qué probar
-después).
+Cada generación es una carpeta `prompts/inbox/<AAAAMMDD>-<personaje>-<estilo>/`:
 
-## 5. Seleccionar lo que vale
-
-Las imágenes buenas se mueven a `images/seleccionadas/` y **se fuerzan** al
-control de versiones (porque `images/` está ignorado salvo esta carpeta):
+- **`preview.png`** — la imagen curada (se commitea; `inbox/` no está ignorado).
+- **`entry.md`** — prompt positivo + negativo completos y los metadatos
+  (personaje, facción, estilo, checkpoint, sampler, scheduler, steps, cfg, seed,
+  resolución, workflow) + el bloque de evaluación vacío (`rating: null`,
+  `liked`, `disliked`).
 
 ```bash
-mv images/raw/syv_pixel_art_portrait_00012_.png images/seleccionadas/
-git add -f images/seleccionadas/syv_pixel_art_portrait_00012_.png
+mkdir -p prompts/inbox/20260628-oficial-propaganda
+cp images/raw/syv_..._00012_.png prompts/inbox/20260628-oficial-propaganda/preview.png
+# escribí entry.md con prompt + metadatos
 ```
 
-Referenciá la imagen seleccionada desde su nota en `docs/tests/`.
+## 5. Ranking → whitelist (el loop)
+
+El usuario pone `rating: 1-5` en el `entry.md`. Cuando esté rankeado, promové el
+link Obsidian a `prompts/whitelist.md`: `rating >= 4` → `## Positivos`,
+`rating <= 2` → `## Negativos`. Antes de la próxima generación, leé esa whitelist
+para reforzar lo que funcionó y evitar lo que no.
 
 ## Convenciones
 
-- **Slug de prueba:** `AAAAMMDD-<tema>` (`20260627-pixel-art-oficial`).
-- **Una nota por prueba o por serie corta** con la misma intención.
+- **Slug de entrega:** `AAAAMMDD-<personaje>-<estilo>` (`20260628-oficial-propaganda`).
+- **Una carpeta por entrega** en `inbox/` (imagen + metadatos juntos).
 - **Seed siempre anotado** — sin seed no hay reproducibilidad.
 - **Prompt completo, literal** — nada de "el de siempre con cambios".

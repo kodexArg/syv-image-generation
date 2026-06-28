@@ -1,9 +1,10 @@
 # syv-image-prompts
 
-Banco de pruebas (playground) de **generación de imágenes para el universo
-*Subordinación y Valor*** usando **ComfyUI**. Acá se experimenta con prompts,
-workflows y modelos; se exportan las imágenes desde ComfyUI a este repo y se
-documenta cada prueba en Markdown.
+Punto de partida de la **generación visual de personajes del universo
+*Subordinación y Valor*** usando **ComfyUI**. Leés una ficha de personaje,
+construís los prompts, generás la imagen y la entregás al `inbox` para que el
+usuario la rankee; los ganadores se promueven a `whitelist.md` y calibran las
+próximas generaciones. La lógica completa vive en `AGENTS.md`.
 
 > Es un *playground* del ecosistema SyV. La inspiración (lugares, facciones,
 > personajes, paleta) sale de la SSOT `syv-docs/`; las herramientas se
@@ -14,16 +15,16 @@ documenta cada prueba en Markdown.
 ```
 syv-image-prompts/
 ├── README.md            ← este archivo
-├── AGENTS.md            ← reglas para agentes (CLAUDE.md → symlink)
-├── docs/                ← TODA la documentación de pruebas (SSOT del repo)
-│   ├── workflow.md      ← cómo correr una prueba de punta a punta
-│   ├── comfyui-setup.md ← root de ComfyUI, output dir, modelos, MCP
-│   └── tests/           ← una nota .md por prueba/serie de pruebas
+├── AGENTS.md            ← el cerebro: flujo de retrato + reglas (CLAUDE.md → symlink)
+├── docs/                ← guías de referencia
+│   ├── workflow.md      ← cómo correr una generación de punta a punta
+│   └── comfyui-setup.md ← root de ComfyUI, output dir, modelos, MCP
 ├── workflows/           ← workflows ComfyUI versionados (.json + _api.json)
-├── prompts/             ← prompts reutilizables (texto plano / .md)
+├── prompts/
+│   ├── inbox/           ← una carpeta por entrega: entry.md (prompt+metadata) + preview.png
+│   └── whitelist.md     ← curación: links Obsidian a los rankeados (Positivos / Negativos)
 ├── images/
-│   ├── raw/             ← exports crudos (NO versionados, .gitignore)
-│   └── seleccionadas/   ← las que valen — se commitean con `git add -f`
+│   └── raw/             ← bulk crudo de ComfyUI (NO versionado, .gitignore)
 └── scripts/
     └── export.py        ← copia los últimos PNG de ComfyUI/output → images/raw
 ```
@@ -31,10 +32,9 @@ syv-image-prompts/
 ## Flujo rápido
 
 1. Arrancá ComfyUI (skill `comfyui` / `comfyctl start`).
-2. Cargá un workflow de `workflows/` y generá.
-3. Exportá los PNG: `uv run scripts/export.py` (o `python3 scripts/export.py`).
-4. Documentá la prueba en `docs/tests/AAAAMMDD-<slug>.md` (prompt, params,
-   seed, modelo, resultado, conclusiones).
-5. Las imágenes que valen → `images/seleccionadas/` y `git add -f`.
+2. Leé la ficha (`../syv-pj/resources/personajes/`) y `prompts/whitelist.md`.
+3. Construí los prompts (ver `AGENTS.md` → Flujo de retrato) y generá.
+4. Entregá a `prompts/inbox/<AAAAMMDD>-<personaje>-<estilo>/`: `entry.md` + `preview.png`.
+5. El usuario rankea en el `entry.md`; los `>=4` se linkean en `whitelist.md`.
 
-Ver `docs/workflow.md` para el detalle completo.
+Ver `docs/workflow.md` para el detalle y `AGENTS.md` para la lógica completa.
