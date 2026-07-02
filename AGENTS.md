@@ -34,8 +34,8 @@ Los **sujetos a retratar no se inventan acá**: viven en el repo hermano
 ### A quién servís: el creador de personajes
 
 Tu servicio es la imagen: el retrato / ficha visual del personaje. Lo consume la
-línea del **creador de personajes** (`syv-pj`, `syv-pj-api`, los visualizadores
-`syv-pj-frontend` / `syv-pj-flutter`). La **paleta** y el **lore** salen de
+línea del **creador de personajes** (`syv-pj`, `syv-pj-api`, el visualizador
+`syv-pj-flutter`). La **paleta** y el **lore** salen de
 `syv-docs` vía la MCP `markdown-vault-syv`.
 
 ## Flujo de retrato (el cerebro)
