@@ -20,10 +20,10 @@ sin tocar el origen.
 ## Lifecycle (vía skill `comfyui`)
 
 ```bash
-~/.agents/skills/comfyui/scripts/comfyctl status      # proceso + HTTP + cola + modelos
-~/.agents/skills/comfyui/scripts/comfyctl start --listen 0.0.0.0 --port 8188 --enable-manager
-~/.agents/skills/comfyui/scripts/comfyctl stop
-~/.agents/skills/comfyui/scripts/comfyctl url
+~/Dev/SyV/syv-harness/skills/comfyui/scripts/comfyctl status      # proceso + HTTP + cola + modelos
+~/Dev/SyV/syv-harness/skills/comfyui/scripts/comfyctl start --listen 0.0.0.0 --port 8188 --enable-manager
+~/Dev/SyV/syv-harness/skills/comfyui/scripts/comfyctl stop
+~/Dev/SyV/syv-harness/skills/comfyui/scripts/comfyctl url
 ```
 
 ## MCP
@@ -33,11 +33,26 @@ usar sus tools (`generate-image`, `health-check`, `queue`, `workflow-*`…). Si
 las tools no aparecen en la sesión, el MCP no está registrado: se cae al
 control por HTTP + `comfyctl` (igual de funcional). Ver el SKILL.md del skill.
 
-## Modelos en uso (pruebas actuales)
+## Modelos en uso
 
-- Checkpoint: `zavyfantasiaxlPDXL_v20.safetensors` (PDXL / Pony-style SDXL).
-  Por eso los prompts llevan tags `score_9, score_8_up, score_7_up` en
-  positivo y `score_6, score_5, score_4` en negativo.
+### Canónico — Z Image Turbo (jun 2026)
+
+| Componente | Archivo | Nodo ComfyUI |
+|---|---|---|
+| UNet GGUF | `zimageTurboByStable_2602Q8.gguf` | `UnetLoaderGGUF` (city96/ComfyUI-GGUF) |
+| Text encoder | `qwen_3_4b.safetensors` | `CLIPLoader` — type `lumina2` |
+| VAE | `ae.safetensors` | `VAELoader` |
+
+Fuente: HF `Comfy-Org/z_image_turbo` (sin token). Workflow: `syv_zimage_turbo.json`.
+Receta: `res_multistep`/`simple`, 8 steps, CFG 1, shift 3 (`ModelSamplingAuraFlow`),
+sin negativo (`ConditioningZeroOut`). Resolución mínima: 704×960.
+Pre-generación: matar `local-llm` para liberar ~1.9 GB VRAM (2060 Super 8GB).
+
+### Legacy — Pony/zavy (deprecado)
+
+- `zavyfantasiaxlPDXL_v20.safetensors` (SDXL/Pony-style). Requería tags
+  `score_9, score_8_up, score_7_up` en positivo y `score_6, score_5, score_4`
+  en negativo. **No da tenebrismo** — reemplazado por Z Image Turbo (jun 2026).
 
 ## Formato de los workflows
 

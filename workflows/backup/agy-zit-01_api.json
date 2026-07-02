@@ -1,0 +1,129 @@
+{
+ "1": {
+  "class_type": "UnetLoaderGGUF",
+  "inputs": {
+   "unet_name": "zimageTurboByStable_2602Q8.gguf"
+  }
+ },
+ "2": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen_3_4b.safetensors",
+   "type": "lumina2",
+   "device": "default"
+  }
+ },
+ "3": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "ae.safetensors"
+  }
+ },
+ "4": {
+  "class_type": "LoraLoader",
+  "inputs": {
+   "model": ["1", 0],
+   "clip": ["2", 0],
+   "lora_name": "ZIT-skinny-fat-slider.safetensors",
+   "strength_model": 0.0,
+   "strength_clip": 0.0
+  }
+ },
+ "5": {
+  "class_type": "LoraLoader",
+  "inputs": {
+   "model": ["4", 0],
+   "clip": ["4", 1],
+   "lora_name": "Z-Breast-Slider.safetensors",
+   "strength_model": 0.0,
+   "strength_clip": 0.0
+  }
+ },
+ "6": {
+  "class_type": "LoraLoader",
+  "inputs": {
+   "model": ["5", 0],
+   "clip": ["5", 1],
+   "lora_name": "ZIT-age-slider.safetensors",
+   "strength_model": 0.0,
+   "strength_clip": 0.0
+  }
+ },
+ "7": {
+  "class_type": "LoraLoader",
+  "inputs": {
+   "model": ["6", 0],
+   "clip": ["6", 1],
+   "lora_name": "ComicT1_OpusIX_Bradhamel.safetensors",
+   "strength_model": 0.0,
+   "strength_clip": 0.0
+  }
+ },
+ "8": {
+  "class_type": "LoraLoader",
+  "inputs": {
+   "model": ["7", 0],
+   "clip": ["7", 1],
+   "lora_name": "ComicT1_OpusVI_Inkquaria.safetensors",
+   "strength_model": 0.0,
+   "strength_clip": 0.0
+  }
+ },
+ "9": {
+  "class_type": "ModelSamplingAuraFlow",
+  "inputs": {
+   "model": ["8", 0],
+   "shift": 3.0
+  }
+ },
+ "15": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "clip": ["8", 1],
+   "text": "World of Subordinación y Valor: cold rain-grey overcast light, low-tech analog Catholic-military theocracy, worn concrete; muted olive-drab, pale celeste and cream palette. medium shot on rotting rain-soaked docks, perpetual drizzle, handheld documentary framing, a 35-year-old female resistance fighter of the Ejército Rojo, intense focused gaze, short dark hair streaked with silver, wearing a rugged olive-drab trench coat with brass buttons and weathered leather straps, standing against a rain-drenched concrete barricade under dramatic side lighting, bold graphic comic illustration in OpusIX Bradhamel and Inkquaria style, confident dark ink linework, high contrast chiaroscuro, muted earthy tones, 35mm film grain, highly cinematic atmosphere."
+  }
+ },
+ "16": {
+  "class_type": "ConditioningZeroOut",
+  "inputs": {
+   "conditioning": ["15", 0]
+  }
+ },
+ "17": {
+  "class_type": "EmptySD3LatentImage",
+  "inputs": {
+   "width": 864,
+   "height": 1152,
+   "batch_size": 1
+  }
+ },
+ "18": {
+  "class_type": "KSampler",
+  "inputs": {
+   "model": ["9", 0],
+   "positive": ["15", 0],
+   "negative": ["16", 0],
+   "latent_image": ["17", 0],
+   "seed": 4242424242,
+   "steps": 8,
+   "cfg": 1.0,
+   "sampler_name": "res_multistep",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "19": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": ["18", 0],
+   "vae": ["3", 0]
+  }
+ },
+ "20": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": ["19", 0],
+   "filename_prefix": "agy-zit-01"
+  }
+ }
+}

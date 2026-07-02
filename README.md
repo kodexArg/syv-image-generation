@@ -1,4 +1,4 @@
-# syv-image-prompts
+# syv-image-generation
 
 Punto de partida de la **generación visual de personajes del universo
 *Subordinación y Valor*** usando **ComfyUI**. Leés una ficha de personaje,
@@ -13,7 +13,7 @@ próximas generaciones. La lógica completa vive en `AGENTS.md`.
 ## Estructura
 
 ```
-syv-image-prompts/
+syv-image-generation/
 ├── README.md            ← este archivo
 ├── AGENTS.md            ← el cerebro: flujo de retrato + reglas (CLAUDE.md → symlink)
 ├── docs/                ← guías de referencia

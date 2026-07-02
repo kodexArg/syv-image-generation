@@ -16,11 +16,17 @@ Then ready for build_grid.py
 from __future__ import annotations
 
 import json
+import sys
 import time
 from pathlib import Path
 from typing import Any
 
 import requests
+
+HERE = Path(__file__).resolve().parent
+REPO_ROOT = HERE.parent
+sys.path.insert(0, str(HERE))
+from _comfy_root import comfy_output  # noqa: E402
 
 COMFY = "http://127.0.0.1:8188"
 POLL = 1.5
@@ -224,9 +230,12 @@ def queue_and_wait(workflow: dict, timeout: float = TIMEOUT) -> list[str]:
 
 
 def main():
-    out_dir = Path.home() / "Documents" / "SyV-Personajes" / "20260627-hyper-vs-lightning-3x5"
+    # SSOT: syv-image-generation es el único home de imágenes generadas.
+    out_dir = REPO_ROOT / "prompts" / "inbox" / "20260627-hyper-vs-lightning-3x5"
     out_dir.mkdir(parents=True, exist_ok=True)
     print(f"Output dir: {out_dir}")
+
+    comfy_out = comfy_output()
 
     setups = [LIGHTNING, HYPER]
     for c in CHARS:
@@ -238,7 +247,7 @@ def main():
                 files = queue_and_wait(wf)
                 print("  produced:", files)
                 for f in files:
-                    src = Path("/home/kodex/ComfyUI/output") / f
+                    src = comfy_out / f
                     dst = out_dir / f"{c['slug']}_{s['name']}.png"
                     if src.exists():
                         # take the first (or last) match; simple cp last
