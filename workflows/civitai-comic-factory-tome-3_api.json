@@ -1,0 +1,126 @@
+{
+  "1": {
+    "inputs": {
+      "unet_name": "z_image_turbo_bf16.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader"
+  },
+  "3": {
+    "inputs": {
+      "clip_name": "qwen_3_4b.safetensors",
+      "type": "lumina2",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader"
+  },
+  "8": {
+    "inputs": {
+      "vae_name": "ae.sft"
+    },
+    "class_type": "VAELoader"
+  },
+  "11": {
+    "inputs": {
+      "lora_name": "Atomic_Heart_Inspo_E11.safetensors",
+      "strength_model": 0.75,
+      "strength_clip": 0.75,
+      "model": [
+        "1",
+        0
+      ],
+      "clip": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "LoraLoader"
+  },
+  "2": {
+    "inputs": {
+      "shift": 3.0,
+      "model": [
+        "11",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingAuraFlow"
+  },
+  "4": {
+    "inputs": {
+      "text": "Gavenine art style – a highly detailed portrait of a mature man with intense, piercing eyes gazing directly at the viewer; he has dark, slightly tousled hair, stubble on his jawline, and wears a formal suit jacket over a crisp white collared shirt paired with a black tie; smoke curls gently from a cigarette held between his lips, casting subtle wisps into the warm-toned background that blends earthy browns and soft amber hues; lighting emphasizes sharp facial contours with dramatic chiaroscuro shadows accentuating depth and texture; brushstroke-like digital rendering mimics oil painting technique with visible impasto textures around the face, neck, and shoulders; overall mood is brooding yet contemplative, evoking noir cinematic atmosphere; bottom left corner features small text reading “NO ROOTS CITY” followed by “BRANDON BIRD”.",
+      "clip": [
+        "11",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "5": {
+    "inputs": {
+      "conditioning": [
+        "4",
+        0
+      ]
+    },
+    "class_type": "ConditioningZeroOut"
+  },
+  "6": {
+    "inputs": {
+      "width": 858,
+      "height": 1223,
+      "batch_size": 1
+    },
+    "class_type": "EmptySD3LatentImage"
+  },
+  "7": {
+    "inputs": {
+      "seed": 186620102671105,
+      "steps": 8,
+      "cfg": 1,
+      "sampler_name": "heunpp2",
+      "scheduler": "simple",
+      "denoise": 1.0,
+      "model": [
+        "2",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "5",
+        0
+      ],
+      "latent_image": [
+        "6",
+        0
+      ]
+    },
+    "class_type": "KSampler"
+  },
+  "9": {
+    "inputs": {
+      "samples": [
+        "7",
+        0
+      ],
+      "vae": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "VAEDecode"
+  },
+  "10": {
+    "inputs": {
+      "filename_prefix": "civitai-comic-factory-tome-3",
+      "images": [
+        "9",
+        0
+      ]
+    },
+    "class_type": "SaveImage"
+  }
+}
