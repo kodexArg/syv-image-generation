@@ -20,10 +20,10 @@ sin tocar el origen.
 ## Lifecycle (vía skill `comfyui`)
 
 ```bash
-~/Dev/SyV/syv-harness/skills/comfyui/scripts/comfyctl status      # proceso + HTTP + cola + modelos
-~/Dev/SyV/syv-harness/skills/comfyui/scripts/comfyctl start --listen 0.0.0.0 --port 8188 --enable-manager
-~/Dev/SyV/syv-harness/skills/comfyui/scripts/comfyctl stop
-~/Dev/SyV/syv-harness/skills/comfyui/scripts/comfyctl url
+~/SyV/syv-harness/skills/comfyui/scripts/comfyctl status      # proceso + HTTP + cola + modelos
+~/SyV/syv-harness/skills/comfyui/scripts/comfyctl start --listen 0.0.0.0 --port 8188 --enable-manager
+~/SyV/syv-harness/skills/comfyui/scripts/comfyctl stop
+~/SyV/syv-harness/skills/comfyui/scripts/comfyctl url
 ```
 
 ## MCP

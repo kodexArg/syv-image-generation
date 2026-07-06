@@ -9,8 +9,8 @@ de modo que sea reproducible.
 Vía el skill `comfyui`:
 
 ```bash
-~/Dev/SyV/syv-harness/skills/comfyui/scripts/comfyctl status   # ¿está arriba?
-~/Dev/SyV/syv-harness/skills/comfyui/scripts/comfyctl start --port 8188 --enable-manager
+~/SyV/syv-harness/skills/comfyui/scripts/comfyctl status   # ¿está arriba?
+~/SyV/syv-harness/skills/comfyui/scripts/comfyctl start --port 8188 --enable-manager
 ```
 
 ## 2. Cargar workflow y generar

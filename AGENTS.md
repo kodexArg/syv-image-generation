@@ -2,7 +2,7 @@
 
 Punto de partida de la **generación visual de personajes** del universo
 *Subordinación y Valor* con **ComfyUI**. Este AGENTS.md manda sobre el de la raíz
-`~/Dev/SyV/` cuando trabajás *dentro* de este repo, y **es el cerebro del repo**:
+`~/SyV/` cuando trabajás *dentro* de este repo, y **es el cerebro del repo**:
 no hay skill externo: la lógica de retrato vive acá.
 
 ## Qué es
@@ -138,7 +138,7 @@ No hardcodees rutas: el root se detecta dinámicamente vía `find_comfy.py` /
   `prompts/inbox/<slug>/preview.png`.
 - **SSOT de imágenes/prompts/workflows:** `syv-image-generation` es el único
   home de estos tres artefactos en todo el ecosistema SyV. Todo script corre
-  desde la raíz `~/Dev/SyV` o resuelve sus rutas vía `Path(__file__)` —
+  desde la raíz `~/SyV` o resuelve sus rutas vía `Path(__file__)` —
   nunca asume `cwd == syv-image-generation/`.
 
 ## Modelo canónico actual (actualizado jun 2026)
